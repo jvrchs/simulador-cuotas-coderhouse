@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador TC</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container justify-content-center">
+            <div class="row justify-content-center">
+                <div class="col-10 text-center p-3 mb-2 text-white mt-3 mb-3 contTitulo">
+                    <h1 class="tituloPrincipal">SIMULADOR DE CUOTAS DE TARJETA DE CRÉDITO</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container justify-content-center">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 parrafoPrincipal jumbotron">
+                    <h2>Bienvenido/a!</h2>
+                    <br>
+                    <p>Con este simulador podrás tener información sobre dos variables importantes al momento de pagar tu tarjeta de crédito:</p>
+                    <ul>
+                        <li>Intereses a pagar</li>
+                        <li>Tiempo que se tardará en pagar la deuda de su tarjeta</li>
+                    </ul>
+                    <br>
+                    <p>
+                        Utilizando los datos entregados en su estado de cuenta puede conocer el tiempo que tardará en cumplir con sus obligaciones además
+                        del ahorro que podría obtener en intereses cuando se esfuerza en pagar un monto mayor al pago mínimo sugerido.
+                        <br>
+                        <br>
+                        También podrá conocer el tiempo que tardará en cubrir su deuda si paga el monto mínimo indicado en su estado de cuenta así como el beneficio que obtendría
+                        al realizar pagos fijos iguales por un monto mayor a dicho pago mínimo.      
+                    </p>
+                </div>
+                <div class="col-md-12 col-lg-12 contenedorForm jumbotron mt-5">
+                    <form oninput="tasaAnual.value = Math.round(((tasaMensual.value) * 12) * 100)/100">
+                        <div class="form-group">
+                            <label for="deudaTotalFacturada">Deuda Total Facturada</label>
+                            <input type="number" class="form-control" id="deudaTotalFacturada" aria-describedby="montoFacturadoHelp" placeholder="Ingrese la deuda total facturada" oninput="alertaValidarNumero('deudaTotalFacturada')"  style="font-size: 1.5rem;">
+                            <div id="alertdeudaTotalFacturada" class="alert alert-danger" role="alert">
+                                Ingrese un valor mayor a cero.
+                            </div>
+                            <small id="montoFacturadoHelp" class="form-text text-muted">Corresponde al monto adeudado a la fecha del estado de cuenta.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pagoMinimo">Pago Mínimo</label>
+                            <input type="number" class="form-control" id="pagoMinimo" aria-describedby="pagoMinimoHelp" placeholder="Ingrese el pago mínimo" oninput="alertaValidarNumero('pagoMinimo')" style="font-size: 1.5rem;">
+                            <div id="alertpagoMinimo" class="alert alert-danger" role="alert">
+                                Ingrese un valor mayor a cero.
+                            </div>
+                            <small id="pagoMinimoHelp" class="form-text text-muted">Corresponde al pago minimo que aparece en el estado de cuenta.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pagoAdicional">Pago Adicional</label>
+                            <input type="number" class="form-control" id="pagoAdicional" aria-describedby="pagoAdicionalHelp" placeholder="Ingrese el pago adicional" oninput="alertaValidarNumero('pagoAdicional')" style="font-size: 1.5rem;">
+                            <div id="alertpagoAdicional" class="alert alert-danger" role="alert">
+                                Ingrese un valor mayor o igual a cero.
+                            </div>
+                            <small id="pagoAdicionalHelp" class="form-text text-muted">Corresponde a una cantidad a elegir por el cliente, adicional al pago minimo sugerido.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tasaMensual">Tasa de interés mensual</label>
+                            <input type="number" class="form-control" id="tasaMensual" aria-describedby="tasaMensualHelp" placeholder="Ingrese la tasa de interés mensual de su crédito" name="tasaMensual" oninput="alertaValidarNumero('tasaMensual')" style="font-size: 1.5rem;">
+                            <div id="alerttasaMensual" class="alert alert-danger" role="alert">
+                                Ingrese un valor mayor o igual a cero.
+                            </div>
+                            <small id="tasaMensualHelp" class="form-text text-muted">Es la tasa de interés aplicable en el proximo periodo y que se informa en el estado de cuenta. No se considera la tasa de interés por compras en cuotas.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="tasaAnual">Tasa de interés anual</label>
+                            <output name="tasaAnual" for="tasaMensual" class="form-control" id="tasaAnual" aria-describedby="tasaAnualPlaceholder" style="font-size: 1.5rem;">
+                            <small id="tasaAnualPlaceholder" class="form-text text-muted">Tasa de interés anual calculada</small>
+                        </div>
+                        <button type="button" class="btn btn-lg btn-block" data-toggle="" data-target="#exampleModal" id="botonSimular" onclick="validarForm()">
+                            SIMULAR
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Resultados -->
+        <div class="modal-container">
+            <div class="modal-resultados modal-close">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">RESULTADOS SIMULACIÓN</h2>
+                </div>
+                <div class="modal-body">
+                    <p><strong>La operación fue simulada utilizando los siguientes datos:</strong></p>
+                    <table class="table" id="tablaResumen">
+                        <tbody>
+                            <tr>
+                                <td id="deudaTotal"></td>
+                            </tr>
+                            <tr>
+                                <td id="pagoMin"></td>
+                            </tr>
+                            <tr>
+                                <td id="pagoAd"></td>
+                            </tr>
+                            <tr>
+                                <td id="iMensual"></td>
+                            </tr>
+                            <tr>
+                                <td id="iAnual"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Los resultados de su cálculo son los siguientes:</strong></p>
+                    <table class="table" id="tablaCalculo">
+                        <tbody>
+                            <tr>
+                                <td id="nMeses"></td>
+                            </tr>
+                            <tr>
+                                <td id="intereses"></td>
+                            </tr>
+                            <tr>
+                                <td id="capital"></td>
+                            </tr>
+                            <tr>
+                                <td id="total"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" id="tablaResultado">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mes</th>
+                                <th scope="col">Deuda inicial</th>
+                                <th scope="col">Interés</th>
+                                <th scope="col">Pago Mensual</th>
+                                <th scope="col">Deuda Final</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-lg botonModal" data-dismiss="modal" onclick="cerrarResultados()">Volver a simular</button>
+                    <button type="button" class="btn btn-primary btn-lg botonModal" onclick="generarPDF()">Descargar</button>
+                </div>
+            </div>
+            <div id="elementH"></div>
+        </div>
+        <!-- Alert -->
+        <div class="alert-container">
+            <div class="alerta alert-close">
+                <div class="alert-header">
+                    <span class="close-alert" style="font-size: 2rem; color: red;">
+                        <i class="fas fa-times-circle" onclick="cerrarAlert()"></i>
+                    </span> 
+                    <img id="imagenWarning" width="80" src="media/warning.png">
+                </div>
+                <br>
+                <div class="alert-body">
+                    <ul id="listaErrores">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/validar.form.js"></script>
+    <script src="js/generar.pdf.js"></script>
+    <script src="js/jspdf.umd.js"></script>
+    <script src="js/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://kit.fontawesome.com/69e69db28e.js" crossorigin="anonymous"></script>
+</body>
+</html>

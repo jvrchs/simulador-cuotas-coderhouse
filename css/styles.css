@@ -1,0 +1,207 @@
+/*INGRESO DE DATOS*/
+form{
+    font-size: 1.5rem;
+}
+
+::placeholder {
+    font-size: 1.4rem;
+}
+
+small{
+    font-size: 1.3rem;
+}
+
+#alertdeudaTotalFacturada, #alertpagoMinimo, #alertpagoAdicional, #alerttasaMensual{
+    display: none;
+}
+
+.contenedorForm{
+    padding: 2rem;
+}
+
+@media (max-width: 576px){
+    .contenedorForm{
+        margin: 1.5rem;
+    }
+}
+
+#botonSimular{
+    background-color: rgba(79, 125, 255, 1.0);
+    color: #fff;
+    width: 15rem;
+    border-radius: 50px;
+    font-weight: bold;
+    letter-spacing: 0.15rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* GENERALES */
+html {
+    font-size: 62.5%;
+    background-color: #fff;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    display: none;
+  }
+
+@media (max-width: 768px){    
+    .contTitulo{
+        margin: 0;
+    }
+}
+
+.tituloPrincipal{
+    color: #000000;
+    font-size: 3.5rem;
+    font-weight: bold;
+}
+
+@media (max-width: 768px){
+    .tituloPrincipal{
+        font-size: 2.3rem;
+        margin: 0;
+    }
+}
+
+body{
+    background-color: rgb(0, 0, 0, 0.0);
+}
+
+.parrafoPrincipal{
+    text-align: justify;
+    font-size: 1.5rem;
+    background-color: rgb(1, 28, 77, 1.0);
+    margin: 0;
+    padding: 2rem;
+}
+
+@media (max-width: 576px){
+    .parrafoPrincipal{
+        margin: 1.5rem;
+    }
+}
+
+.parrafoPrincipal p, .parrafoPrincipal ul, .parrafoPrincipal h2{
+    color: #fff;
+}
+
+.parrafoPrincipal h2{
+    text-align: start;
+}
+
+/* MODAL RESULTADOS */
+.modal-container{
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    z-index: 100;  
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-title{
+    font-weight: bold;
+}
+
+.modal-resultados{
+    width: 45%;
+    height: 90%;
+    background: #fff;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.9s;
+    transform: translateY(0%);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px){
+    .modal-resultados{
+        width: 90%;
+    }
+}
+
+
+.modal-close{
+    transform: translateY(-200%)
+}
+
+.close{
+    cursor: pointer;
+}
+
+.botonModal{
+    color: #fff;
+    width: 15rem;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 0.15rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ALERT */
+.alert-container{
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    z-index: 100;  
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alerta{
+    width: auto;
+    height: auto;
+    background: #fff;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.9s;
+    transform: translateY(0%);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.alert-close{
+    transform: translateY(-300%)
+}
+
+.close-alert{
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+.alert-body{
+    display: flex;
+    flex-direction: column;
+}
+
+#imagenWarning{
+    margin: auto;
+    display: flex;
+}
+
+
+
